@@ -188,22 +188,20 @@ public class Main {
         }
 
         var meanAvgPrecisions = avgPrecisions.stream()
-                .map(precisions -> precisions.stream()
-                        .mapToDouble(Float::doubleValue)
-                        .average()
-                        .orElse(0))
+                .map(Main::mean)
                 .toList();
         var meanAvgRecalls = avgRecalls.stream()
-                .map(recalls -> recalls.stream()
-                        .mapToDouble(Float::doubleValue)
-                        .average()
-                        .orElse(0))
+                .map(Main::mean)
                 .toList();
 
         System.out.println("k,mean_avg_precision,mean_avg_recall");
         for (int i = 0; i < 4; i++) {
             System.out.println((i + 1) + "," + meanAvgPrecisions.get(i) + "," + meanAvgRecalls.get(i));
         }
+    }
+
+    private static double mean(List<Float> list) {
+        return list.stream().mapToDouble(Float::doubleValue).average().orElse(0);
     }
 
     private static String[] getDocTitles(TopDocs topDocs, IndexSearcher searcher) throws IOException {
