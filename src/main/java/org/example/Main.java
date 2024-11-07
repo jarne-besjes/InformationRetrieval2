@@ -35,7 +35,7 @@ public class Main {
         return new StandardAnalyzer();
     }
 
-    private static void add_arguments_to_parser(ArgumentParser parser) {
+    private static void addArgumentsToParser(ArgumentParser parser) {
         parser.addArgument("--query", "-q").help("Query to search for").type(String.class);
         parser.addArgument("-n").help("Number of results to return").type(Integer.class);
         parser.addArgument("--no-index").help("Do not index the documents").action(Arguments.storeTrue());
@@ -87,7 +87,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         ArgumentParser parser = ArgumentParsers.newFor("Main").build().usage("Main [OPTIONS]").defaultHelp(true).description("Index and search documents");
 
-        add_arguments_to_parser(parser);
+        addArgumentsToParser(parser);
 
         Namespace res = parser.parseArgsOrFail(args);
 
