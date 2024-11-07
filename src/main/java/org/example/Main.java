@@ -1,24 +1,17 @@
 package org.example;
 
 import com.opencsv.CSVParserBuilder;
-import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
-import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import net.sourceforge.argparse4j.impl.Arguments;
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.document.*;
 import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.store.ByteBuffersDirectory;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.store.FSDirectory;
 
@@ -28,16 +21,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
-import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
 
 public class Main {
@@ -119,7 +107,7 @@ public class Main {
         } else if (res.get("mode").equals("bench")) {
             runBenchmark(indexPath, getAnalyzer());
         } else if (res.get("mode").equals("gen_csv")) {
-            generate_csv(indexPath, getAnalyzer());
+            generateCsv(indexPath, getAnalyzer());
         }
     }
 
@@ -135,7 +123,7 @@ public class Main {
         }
     }
 
-    private static void generate_csv(Path indexPath, Analyzer analyzer) throws IOException, CsvException, ParseException {
+    private static void generateCsv(Path indexPath, Analyzer analyzer) throws IOException, CsvException, ParseException {
         var queries = getQueries();
         var searcher = getIndexSearcher(indexPath);
 
