@@ -111,7 +111,7 @@ public class Main {
         }
     }
 
-    private static void write_csv(List<int[]> results, FileWriter writer) {
+    private static void writeCsv(List<int[]> results, FileWriter writer) {
         try {
             writer.write("Query_nr,doc_nr\n");
             for (var result : results) {
@@ -145,7 +145,7 @@ public class Main {
         }
 
         var writer = new FileWriter("results.csv");
-        write_csv(csv_results, writer);
+        writeCsv(csv_results, writer);
     }
 
     private static void runBenchmark(Path indexPath, Analyzer analyzer) throws IOException, CsvException, ParseException {
