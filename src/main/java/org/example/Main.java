@@ -68,8 +68,7 @@ public class Main {
         }
     }
 
-    static void query(Path indexPath, Analyzer analyzer) throws IOException, ParseException {
-        var queryStr = "does xpress bet charge to deposit money in your account";
+    static void query(Path indexPath, Analyzer analyzer, String queryStr) throws IOException, ParseException {
         var query = new QueryParser("content", analyzer).parse(queryStr);
 
         var searcher = getIndexSearcher(indexPath);
@@ -103,7 +102,7 @@ public class Main {
         }
 
         if (res.get("mode").equals("query")) {
-            query(indexPath, getAnalyzer());
+            query(indexPath, getAnalyzer(), res.get("query"));
         } else if (res.get("mode").equals("bench")) {
             runBenchmark(indexPath, getAnalyzer());
         } else if (res.get("mode").equals("gen_csv")) {
