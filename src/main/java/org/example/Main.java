@@ -102,7 +102,13 @@ public class Main {
         }
 
         if (res.get("mode").equals("query")) {
-            query(indexPath, getAnalyzer(), res.get("query"));
+            var query = "";
+            try {query = res.get("query").toString();}
+            catch (NullPointerException e) {
+                System.err.println("Please provide a query");
+                System.exit(-1);
+            }
+            query(indexPath, getAnalyzer(), query);
         } else if (res.get("mode").equals("bench")) {
             runBenchmark(indexPath, getAnalyzer());
         } else if (res.get("mode").equals("gen_csv")) {
